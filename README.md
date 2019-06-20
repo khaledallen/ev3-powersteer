@@ -41,7 +41,7 @@ The class handles steering by extending the `DriveBase.drive()` function and off
 
 ### example
 
-To drive the robot at 100mm/s and initiate a 30 degree turn
+To drive the robot at 100mm/s while performing a 30 degree turn
 
 ```
 robot.drive(100,30)
