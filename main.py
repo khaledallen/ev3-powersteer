@@ -7,8 +7,8 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
-import math
 
+import math
 class PowerSteer(DriveBase):
     def __init__(self, left_motor, right_motor, steering_motor, wheel_diameter, axle_track, wheel_base):
         self.wheel_diameter = wheel_diameter
