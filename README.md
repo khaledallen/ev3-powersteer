@@ -12,7 +12,9 @@ An extension of the LEGO microPython Drivebase class that adds support for a ded
 
 This class requires the LEGO microPython framework installed on your ev3 brick, since it is based on the robotics.DriveBase class. 
 
-* To install Python on the EV3: [LEGO Education Python for EV3 Website](https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3)
+* [Instructions for installed microPython on LEGO Education Website](https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3)
+* [Direct Link to the EV3 microSD card image](https://le-www-live-s.legocdn.com/sc/media/files/ev3-micropython/ev3micropythonv100sdcardimage-4b8c8333736fafa1977ee7accbd3338f.zip)
+* [Direct Link to the EV3 microPython documentation](https://le-www-live-s.legocdn.com/sc/media/files/ev3-micropython/ev3micropythonv100-71d3f28c59a1e766e92a59ff8500818e.pdf)
 
 ## Usage
 
