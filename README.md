@@ -10,7 +10,9 @@ An extension of the LEGO microPython Drivebase class that adds support for a ded
 
 ## Requirements
 
-This class requires the LEGO microPython framework installed on your ev3 brick, since it is based on the robotics.Drivebase class. 
+This class requires the LEGO microPython framework installed on your ev3 brick, since it is based on the robotics.DriveBase class. 
+
+* To install Python on the EV3: [LEGO Education Python for EV3 Website](https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3)
 
 ## Usage
 
@@ -25,6 +27,8 @@ The function template is
 - `drivebase` - distance from the drive wheels to the steering wheels in millimeters
 
 To instantiate a powersteering robot, create a new `PowerSteer` class with the appropriate measurements for the various dimensions of the robot.
+
+You may need to adjust the direction of the steering motor depending on its arrangement.
 
 ### example
 
