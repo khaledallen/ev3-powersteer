@@ -3,29 +3,36 @@
 - [ ] Confirm the turn radius measurements
 - [ ] Confirm the differential drive calculations are correct
 - [ ] Extend to handle front- and rear-wheel drive
+- [ ] Extend to handle steering on all wheels
+- [ ] Investigate if steering needs to be adjusted for reverse drive
+- [ ] Add support for protecting the steering motor from oversteering (add a paramter for max steering angle and check to prevent straining the motor)
 
-# ev3 Powersteering
+# EV3 Powersteering
 
-An extension of the LEGO microPython Drivebase class that adds support for a dedicated steering motor.
+An extension of the LEGO microPython `DriveBase` class that adds support for a motor-driven steering mechanism. This allows the robot's drivetrain to utilize four wheels, two of which are for steering, without skipping. It would also work with a single powered steering wheel (as opposed to a freely rotating caster wheel).
+
+Currently, it is only designed to work with rear-wheel drive and front-wheel steering, but I have plans to extend it to support all-wheel steering and drive. 
+
+This was developed as part of the Johns Hopkins CTY Introduction to Robotics curriculum for summer of 2019, as a means to teach students the principles of extending a Python class so they can use the same syntax for driving with a powered steering vehicle as with a two-wheel drive template robot.
 
 ## Requirements
 
-This class requires the LEGO microPython framework installed on your ev3 brick, since it is based on the robotics.DriveBase class. 
+This class requires the LEGO microPython framework installed on your EV3 brick, since it is based on the `robotics.DriveBase` class. 
 
-* [Instructions for installed microPython on LEGO Education Website](https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3)
+* [Instructions for installing microPython on LEGO Education Website](https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3)
 * [Direct Link to the EV3 microSD card image](https://le-www-live-s.legocdn.com/sc/media/files/ev3-micropython/ev3micropythonv100sdcardimage-4b8c8333736fafa1977ee7accbd3338f.zip)
 * [Direct Link to the EV3 microPython documentation](https://le-www-live-s.legocdn.com/sc/media/files/ev3-micropython/ev3micropythonv100-71d3f28c59a1e766e92a59ff8500818e.pdf)
 
 ## Usage
 
-The function template is
+The class definition is
 `class PowerSteer(left_motor, right_motor, steering_motor, wheel_diameter, axle_width, drivebase)`
 
 - `left_motor` - A LEGO ev3 motor class (`Motor(Port.[A-D])`, associated with the physical motor powering the left drive wheel.
 - `right_motor` - A LEGO ev3 motor class (`Motor(Port.[A-D])`, associated with the physical motor powering the right drive wheel.
 - `steering_motor` - A LEGO ev3 motor class (`Motor(Port.[A-D])`, associated with the physical motor powering the steering column.
 - `wheel_diameter` - wheel diameter of the drive wheels in millimeters
-- `axle_width` - distance between the steering wheels in millimeters
+- `axle_width` - distance between the drive wheels in millimeters
 - `drivebase` - distance from the drive wheels to the steering wheels in millimeters
 
 To instantiate a powersteering robot, create a new `PowerSteer` class with the appropriate measurements for the various dimensions of the robot.
@@ -37,13 +44,16 @@ You may need to adjust the direction of the steering motor depending on its arra
 For a robot with wheel diameter 40mm, axle legnth 95mm, and drivebase 150mm, and the drive motors facing "backwards": 
 
 ```
+# First, set up the motors as normal
 left = Motor(Port.C, Direction.COUNTERCLOCKWISE)
 right = Motor(Port.B, Direction.COUNTERCLOCKWISE)
 steering = Motor(Port.A)
+
+# Create the PowerSteer object as robot
 robot = PowerSteer(left, right, steering, 40, 95, 150)
 ```
 
-The class handles steering by extending the `DriveBase.drive()` function and offloading the steering from the drive wheels to the steering wheels. It still powers the drive wheels differently based on the turn radius and speed.
+The class handles steering by extending the `DriveBase.drive()` function and offloading the steering from the drive wheels to the steering wheels. It still powers the drive wheels differently based on the turn radius and speed. It is intended to work exactly the same as the `DriveBase.drive()` method: simply give it `speed` in mm/s and `steering` in deg/sec, and it handles all the rest.
 
 ### example
 
@@ -96,3 +106,13 @@ Next, the function checks if you wanted to turn at all (`if steering != 0`). If 
 If we do want steering, we need to figure out the turn radius and then figure out how much farther the outer wheel has to travel compared to the inner wheel (`outer_motor_multiplier`). Then, depending on whether we are turning left (positive steering angle) or right (negative steering angle), we apply that adjustment to the appropriate motor and set the other motor to the base deg/sec speed.
 
 In all cases, we should apply the desired steering angle to the steering motor, on the last line, even if it is 0, since otherwise the robot would not straighten out when instructed too.
+
+# License
+
+Copyright 2019 Khaled C. Allen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
